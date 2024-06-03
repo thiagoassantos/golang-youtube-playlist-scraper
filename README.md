@@ -8,12 +8,13 @@ Download your Service Account Token (JSON file) and set it in environment variab
 
 ## SQLite (if you really want)
 
+### SQLite library
+* https://github.com/mattn/go-sqlite3
+
 ### Download GCC to compile
 
 * https://jmeubank.github.io/tdm-gcc/
  
-### Enable the environment variable
-`$env:CGO_ENABLED=1`
+Enable the environment variable:
 
-### SQLite library
-* https://github.com/mattn/go-sqlite3
+`$env:CGO_ENABLED=1`
