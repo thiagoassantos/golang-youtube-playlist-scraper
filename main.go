@@ -45,7 +45,7 @@ func lsPlaylistVideos(yts *youtube.Service, pid string) error {
 			return nil
 		}
 
-		fmt.Println("      -----")
+		fmt.Println(" ----- ")
 	}
 }
 
