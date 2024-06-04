@@ -68,6 +68,7 @@ func lsVideoDetails(yts *youtube.Service, vid string) error {
 		stmt, err := db.Prepare("INSERT INTO videoinfo(videoId, channelArtist, songTitle, url, thumbnail, collected) values(?,?,?,?,?,?)")
 		checkErr(err)
 
+		// Some channel names come with the prefix " - Topic", so it is filtered.
 		res, err := stmt.Exec(vid, strings.TrimRight(x.Snippet.ChannelTitle, " - Topic"), x.Snippet.Title, "https://www.youtube.com/watch?v="+vid, x.Snippet.Thumbnails.High.Url, 1)
 		checkErr(err)
 
@@ -89,7 +90,7 @@ func main() {
 	}
 
 	// Insert the playlist ID below. The playlist must be a "Public" or "Unlisted".
-	err = lsPlaylistVideos(yts, "<YOUTUBE-PLAYLIST-HERE>")
+	err = lsPlaylistVideos(yts, "<ID-PLAYLIST-HERE>")
 
 	db, err := sql.Open("sqlite3", "./database.db")
 	checkErr(err)
