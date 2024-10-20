@@ -5,6 +5,7 @@
 Download your Service Account Token (JSON file) and set it in environment variable `GOOGLE_APPLICATION_CREDENTIALS`.
 
 PowerShell example:
+
 `$env:GOOGLE_APPLICATION_CREDENTIALS="C:\folder\file-youtube-api-token.json"`
 
 ## SQLite (if you really want)
