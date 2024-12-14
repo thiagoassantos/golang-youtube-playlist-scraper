@@ -8,6 +8,10 @@ PowerShell example:
 
 `$env:GOOGLE_APPLICATION_CREDENTIALS="C:\folder\file-youtube-api-token.json"`
 
+## Run script
+
+`go run .\main.go <YOUTUBE-PLAYLIST-ID>`
+
 ## SQLite (if you really want)
 
 ### SQLite library
