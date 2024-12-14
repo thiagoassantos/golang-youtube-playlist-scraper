@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"os"
 	"strings"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -68,7 +69,7 @@ func lsVideoDetails(yts *youtube.Service, vid string) error {
 		stmt, err := db.Prepare("INSERT INTO videoinfo(videoId, channelArtist, songTitle, url, thumbnail, collected) values(?,?,?,?,?,?)")
 		checkErr(err)
 
-		// Some channel names come with the prefix " - Topic", so it is filtered.
+		// Some channel names come with the suffix " - Topic", so it is filtered.
 		res, err := stmt.Exec(vid, strings.TrimRight(x.Snippet.ChannelTitle, " - Topic"), x.Snippet.Title, "https://www.youtube.com/watch?v="+vid, x.Snippet.Thumbnails.High.Url, 1)
 		checkErr(err)
 
@@ -84,13 +85,21 @@ func lsVideoDetails(yts *youtube.Service, vid string) error {
 }
 
 func main() {
+
+	if len(os.Args) < 2 {
+		fmt.Println("Please, insert a YouTube playlist ID.")
+		return
+	}
+
+	playlistLink := os.Args[1]
+	fmt.Println("Argumento: ", playlistLink)
+
 	yts, err := youtube.NewService(context.Background())
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	// Insert the playlist ID below. The playlist must be a "Public" or "Unlisted".
-	err = lsPlaylistVideos(yts, "<ID-PLAYLIST-HERE>")
+	err = lsPlaylistVideos(yts, playlistLink)
 
 	db, err := sql.Open("sqlite3", "./database.db")
 	checkErr(err)
